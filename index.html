@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <title>Timeline</title>
+    <link rel="stylesheet" type="text/css" href="default.css">
     <script type="text/javascript" src="zepto.js"></script>
     <script type="text/javascript" src="underscore.js"></script>
     <script type="text/javascript" src="backbone.js"></script>
     <script type="text/javascript" src="default.js"></script>
-    <link rel="stylesheet" type="text/css" src="default.css">
-    <title>Timeline</title>
+    <script type="text/x-template" id="donation-view">
+      <span class="name"><%= donor.first_name %> <%= donor.last_name %></span> gave <span class="amount">$<%= amount %></span> to <span class="charity"><%= charity.name %></span>
+      <% if (message) { %>
+        and said <span class="message">&ldquo;<%= message %>&rdquo;</span>
+      <% } %>
+    </script>
   </head>
   <body>
-    <h1>Timeline</h1>
     <ol>
     </ol>
   </body>

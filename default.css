@@ -1,0 +1,38 @@
+html, body {
+  margin: 20px;
+  padding: 0;
+  background: #000;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-size: 24pt;
+  color: #666;
+}
+
+  ol li {
+    margin-bottom: 25px;
+  }
+  
+  ol li:last-child {
+    margin-bottom: none;
+  }
+
+    ol li span.charity {
+      color: #A839B2;
+    }
+  
+    ol li span.name {
+      color: #fff;
+    }
+    
+    ol li span.amount {
+      color: #ACD030;
+    }
+  
+    ol li span.message {
+      font-style: italic;
+    }

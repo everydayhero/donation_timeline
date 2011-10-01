@@ -35,7 +35,7 @@
     tagName: 'li',
     
     render: function() {
-      $(this.el).html(this.model.get('id'));
+      $(this.el).html(_.template($('#donation-view').html(), this.model.attributes));
       return this;
     }
   });
