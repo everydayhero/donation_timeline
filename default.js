@@ -34,6 +34,10 @@
   var DonationView = Backbone.View.extend({
     tagName: 'li',
     
+    initialize: function() {
+      this.model.bind('remove', this.remove, this);
+    },
+    
     render: function() {
       $(this.el).html(_.template($('#donation-view').html(), this.model.attributes));
       return this;
@@ -46,7 +50,6 @@
     initialize: function() {
       donations.bind('reset', this.concat, this);
       donations.bind('add', this.unshift, this);
-      donations.bind('remove', this.pop, this);
     },
     
     concat: function() {
@@ -56,10 +59,6 @@
     unshift: function(donation) {
       var view = new DonationView({model: donation});
       $(this.el).prepend(view.render().el);
-    },
-    
-    pop: function() {
-      this.$(':last-child').remove();
     }
   });
   
