@@ -63,15 +63,48 @@
     }
   });
   
+  var Network = Backbone.Model.extend({
+    initialize: function() {
+      donations.bind('add', this.increment, this);
+    },
+    
+    increment: function(donation) {
+      this.set({total_network_donations: this.get('total_network_donations') + donation.get('amount')});
+    },
+
+    total: function() {
+      return Math.round(this.get('total_network_donations'));
+    },
+    
+    url: 'http://edh:zIMPPITCxQIUDYUFFzeW@localhost:3001/api/v1/network.json?callback=?'
+  });
+  
+  var network = new Network();
+  
+  var NetworkView = Backbone.View.extend({
+    el: 'p',
+    
+    initialize: function() {
+      network.bind('change', this.render, this);
+    },
+    
+    render: function() {
+      $(this.el).text('$' + network.total());
+      return this;
+    }
+  })
+  
   var AppView = Backbone.View.extend({
     el: 'body',
     
     initialize: function() {
-      new DonationsView();
       var self = this;
+      new DonationsView();
+      new NetworkView();
       donations.fetch({success: function() {
         self.poll();
       }});
+      network.fetch();
     },
     
     poll: function() {
