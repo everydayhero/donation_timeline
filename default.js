@@ -5,10 +5,6 @@
     model: Donation,
     
     url: 'http://edh:zIMPPITCxQIUDYUFFzeW@localhost:3001/api/v1/donations.json?callback=?',
-        
-    initialize: function() {
-      this.bind('reset', function() { this.maxLength = this.length });
-    },
     
     comparator: function(donation) {
       return donation.get('id');
@@ -77,7 +73,7 @@
         donations.fetch({add: true, success: function() {
           self.poll();
         }});
-      }, 5000);
+      }, 30000);
     }
   });
   
