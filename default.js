@@ -8,7 +8,6 @@
         
     initialize: function() {
       this.bind('reset', function() { this.maxLength = this.length });
-      this.bind('add', this.pop);
     },
     
     comparator: function(donation) {
@@ -22,10 +21,6 @@
           return result.id === model.id;
         });
       });
-    },
-    
-    pop: function() {
-      if (this.length > this.maxLength) this.remove(this.first());
     }
   });
   
@@ -33,10 +28,6 @@
     
   var DonationView = Backbone.View.extend({
     tagName: 'li',
-    
-    initialize: function() {
-      this.model.bind('remove', this.remove, this);
-    },
     
     render: function() {
       $(this.el).html(_.template($('#donation-view').html(), this.model.attributes));
@@ -47,18 +38,25 @@
   var DonationsView = Backbone.View.extend({
     el: 'ol',
     
+    multiplier: 1,
+    
     initialize: function() {
       donations.bind('reset', this.concat, this);
-      donations.bind('add', this.unshift, this);
+      donations.bind('add', this.push, this);
+      donations.bind('add', this.animiate, this);
     },
     
     concat: function() {
-      donations.each(this.unshift, this);
+      donations.each(this.push, this);
     },
         
-    unshift: function(donation) {
+    push: function(donation, animate) {
       var view = new DonationView({model: donation});
-      $(this.el).prepend(view.render().el);
+      $(this.el).append(view.render().el);
+    },
+    
+    animiate: function() {
+      $(this.el).anim({translateY: '-' + this.multiplier++ * 100 + 'px'}, 3, 'ease-in-out');
     }
   });
   
