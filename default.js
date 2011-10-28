@@ -4,7 +4,7 @@
   var Donations = Backbone.Collection.extend({
     model: Donation,
     
-    url: 'http://edh:zIMPPITCxQIUDYUFFzeW@localhost:3001/api/v1/donations.json?callback=?',
+    url: 'https://<API_USERNAME>:<API_TOKEN>@heroix.everydayhero.com.au/api/v1/donations.json?callback=?',
     
     comparator: function(donation) {
       return donation.get('id');
